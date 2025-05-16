@@ -24,7 +24,7 @@ func createTables() {
     	userId INTEGER PRIMARY KEY AUTOINCREMENT,
     	firstName TEXT,
     	lastName TEXT,
-    	email TEXT,
+    	email TEXT UNIQUE,
     	passwordHash TEXT
 	);`
 

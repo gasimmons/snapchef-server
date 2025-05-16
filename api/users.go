@@ -37,8 +37,15 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"status": "created",
-		"userId": userID,
-	})
+	response := map[string]interface{}{
+		"userId":    userID,
+		"email":     newUser.Email,
+		"firstName": newUser.FirstName,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		return
+	}
 }

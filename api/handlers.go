@@ -2,9 +2,8 @@ package api
 
 import (
 	"encoding/json"
-	"net/http"
-
 	"github.com/gasimmons/snapchef-server/db"
+	"net/http"
 )
 
 func RecipesHandler(w http.ResponseWriter, r *http.Request) {

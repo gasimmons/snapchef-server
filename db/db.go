@@ -13,7 +13,7 @@ func InitDB() {
 	var err error
 	DB, err = sql.Open("sqlite3", "./snapchef.db")
 	if err != nil {
-		log.Fatal("❌ Failed to connect to DB:", err)
+		log.Fatal("Failed to connect to DB:", err)
 	}
 
 	createTables()
@@ -24,10 +24,8 @@ func createTables() {
     	userId INTEGER PRIMARY KEY AUTOINCREMENT,
     	firstName TEXT,
     	lastName TEXT,
-    	username TEXT,
     	email TEXT,
-    	password_salt TEXT,
-    	password_hash TEXT
+    	passwordHash TEXT
 	);`
 
 	recipeQuery := `
@@ -37,12 +35,13 @@ func createTables() {
         ingredients TEXT
     );`
 
-	userRecipeQuery := `CREATE TABLE IF NOT EXISTS user_recipes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userId INTEGER NOT NULL,
-    recipeId INTEGER NOT NULL,   
-    FOREIGN KEY(userId) REFERENCES users(userId),
-    FOREIGN KEY(recipeId) REFERENCES recipes(recipeId)            
+	userRecipeQuery := `
+	CREATE TABLE IF NOT EXISTS user_recipes (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		userId INTEGER NOT NULL,
+		recipeId INTEGER NOT NULL,   
+		FOREIGN KEY(userId) REFERENCES users(userId),
+		FOREIGN KEY(recipeId) REFERENCES recipes(recipeId)            
 	);`
 
 	_, err := DB.Exec(userQuery)
